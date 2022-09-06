@@ -1,0 +1,6 @@
+export const GET_CART_LOADING = "GET_CART_LOADING";
+export const GET_CART_DATA = "GET_CART_DATA";
+export const GET_CART_ERROR = "GET_CART_ERROR";
+export const POST_CART_LOADING = "POST_CART_LOADING";
+export const POST_CART_DATA = "POST_CART_DATA";
+export const POST_CART_ERROR="POST_CART_ERROR";

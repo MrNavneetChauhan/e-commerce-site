@@ -1,7 +1,7 @@
 import { Box ,Container,Image,Flex,Button,Text} from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import {useDispatch,useSelector} from "react-redux"
-import { gettingCartData, updateCartData } from "../../redux/cartReducer/action";
+import { deleteCartData, gettingCartData, updateCartData } from "../../redux/cartReducer/action";
 import { POST_CART_DATA } from "../../redux/cartReducer/actionTypes";
 import { Loading } from "../loading/Loading";
 export const Cart = ()=>{
@@ -52,7 +52,13 @@ useEffect(()=>{
                                 }
                             }}>-</Button>
                         </Flex>
-                        <Button colorScheme={"twitter"}>Delete</Button>
+                        <Button onClick={()=>{
+                            dispatch(deleteCartData(product.id)).then(({type})=>{
+                                if(type === POST_CART_DATA){
+                                    dispatch(gettingCartData())
+                                }
+                            })
+                        }} colorScheme={"twitter"}>Delete</Button>
                         </Flex>
                     </Box>
                 )

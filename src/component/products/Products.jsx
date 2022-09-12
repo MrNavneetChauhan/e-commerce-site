@@ -7,11 +7,12 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Loading } from '../loading/Loading';
 import { postingCartData } from '../../redux/cartReducer/action.jsx';
 import { Error } from '../Error/Error.jsx';
-export const Products = () => {
+export const Products = ({reset}) => {
   const {products,isLoading,isError} = useSelector((store)=>store.productReducer);
   const [searchParmas] = useSearchParams();
   const location = useLocation();
 const dispatch = useDispatch();
+console.log("reset",reset)
 const toast = useToast();
   useEffect(()=>{
     if(location || products.length == 0){
@@ -26,6 +27,8 @@ const toast = useToast();
       dispatch(gettingData(query))
     }
   },[location.search])
+
+
 
   return (
     <Container  m={0} pl={"30px"} pt={"30px"} pb={"30px"} maxW={"80%"} >

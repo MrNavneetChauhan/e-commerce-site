@@ -2,7 +2,8 @@ import { Box, Input, Text, Flex,Button } from "@chakra-ui/react";
 import { useEffect, useState ,useRef} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useDispatch} from "react-redux"
-export const SideBar = () => {
+import { gettingData } from "../../redux/productReducer/action";
+export const SideBar = ({reset,setReset}) => {
   const [searchParams, setSearchParams] = useSearchParams([]);
   const inititalCategoryParams = searchParams.getAll("color");
   const inititalFilterParams = searchParams.get("category");
@@ -10,10 +11,7 @@ export const SideBar = () => {
   const [category, setCategory] = useState(inititalCategoryParams || []);
   const [filter, setFilter] = useState(inititalFilterParams || "");
   const [sort,setSort] = useState(initialSortParams || "");
-  const [reset,setReset] = useState(true);
   const dispatch = useDispatch();
-  
-
   const handleCheckBoxes = (e) => {
     let { value } = e.target;
     const allCategory = [...category];
@@ -23,20 +21,24 @@ export const SideBar = () => {
       allCategory.push(value);
     }
     setCategory([...allCategory]);
+    setReset(false)
   };
 
   const handleFilter = (e) => {
     setFilter(e.target.value);
+    setReset(false)
   };
 
   const handleSort = (e)=>{
     setSort(e.target.value)
+    setReset(false)
   }
 
   const handleReset = ()=>{
    setFilter("")
    setCategory([])
    setSort("")
+   setReset(true)
   }
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export const SideBar = () => {
         >
           <label>Men's</label>
           <input
-            defaultChecked={filter == "men's clothing"}
+            checked={filter == "men's clothing"}
             onChange={handleFilter}
             value={"men's clothing"}
             name="category"
@@ -80,7 +82,7 @@ export const SideBar = () => {
         >
           <label>Women's</label>
           <input
-            defaultChecked={filter == "women's clothing"}
+            checked={filter == "women's clothing"}
             onChange={handleFilter}
             value={"women's clothing"}
             name="category"
@@ -96,7 +98,7 @@ export const SideBar = () => {
         >
           <label>Electronics</label>
           <input
-            defaultChecked={filter == "electronics"}
+            checked={filter == "electronics"}
             onChange={handleFilter}
             value={"electronics"}
             name="category"
@@ -115,7 +117,7 @@ export const SideBar = () => {
           align={"center"}
         >
           <label>Ascending</label>
-          <input  value="asc" defaultChecked={sort == "asc"} onChange={handleSort} name="price" type="radio" />
+          <input  value="asc" checked={sort == "asc"} onChange={handleSort} name="price" type="radio" />
         </Flex>
 
         <Flex
@@ -141,7 +143,7 @@ export const SideBar = () => {
         >
           <label>white</label>
           <input
-            defaultChecked={category.includes("white")}
+            checked={category.includes("white")}
             value={"white"}
             onClick={handleCheckBoxes}
             type="checkbox"
@@ -156,7 +158,7 @@ export const SideBar = () => {
         >
           <label>Blue</label>
           <input
-            defaultChecked={category.includes("blue")}
+            checked={category.includes("blue")}
             value={"blue"}
             onClick={handleCheckBoxes}
             type="checkbox"
@@ -171,7 +173,7 @@ export const SideBar = () => {
         >
           <label>Red</label>
           <input
-            defaultChecked={category.includes("red")}
+            checked={category.includes("red")}
             value={"red"}
             onClick={handleCheckBoxes}
             type="checkbox"
@@ -186,7 +188,7 @@ export const SideBar = () => {
         >
           <label>Purple</label>
           <input
-            defaultChecked={category.includes("purple")}
+            checked={category.includes("purple")}
             value={"purple"}
             onClick={handleCheckBoxes}
             type="checkbox"
@@ -201,7 +203,7 @@ export const SideBar = () => {
         >
           <label>Black</label>
           <input
-            defaultChecked={category.includes("black")}
+            checked={category.includes("black")}
             value={"black"}
             onClick={handleCheckBoxes}
             type="checkbox"
@@ -216,7 +218,7 @@ export const SideBar = () => {
         >
           <label>Brown</label>
           <input
-            defaultChecked={category.includes("brown")}
+            checked={category.includes("brown")}
             value={"brown"}
             onClick={handleCheckBoxes}
             type="checkbox"

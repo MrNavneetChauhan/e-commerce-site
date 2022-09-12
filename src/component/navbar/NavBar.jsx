@@ -2,7 +2,13 @@ import { Box, Button, HStack, Flex, Spacer,Input } from "@chakra-ui/react";
 import {Search2Icon} from "@chakra-ui/icons";
 import {Link} from "react-router-dom"
 import React from "react";
+import {useSelector} from "react-redux";
+import { Login } from "./Login";
+
 export const NavBar = () => {
+
+  const {isAuth} = useSelector((store)=>store.authReducer)
+console.log(isAuth)
   return (
     <Flex
       fontSize={"20px"}
@@ -29,8 +35,7 @@ export const NavBar = () => {
       </Flex>
       <Spacer />
       <HStack gap={"20px"}>
-        <Link to={"/login"}>Login</Link>
-        <Link to={"/signup"}>Signup</Link>
+        <Login/>
         <Link to={"/cart"}>Cart</Link>
       </HStack>
     </Flex>

@@ -18,7 +18,7 @@ useEffect(()=>{
     cartData.map((item)=>{
         total += item.price * item.qty
     })
-    setTotal(total)
+    setTotal(Math.round(total))
 },[cartData])
 
 

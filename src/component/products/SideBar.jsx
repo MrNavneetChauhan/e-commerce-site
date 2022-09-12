@@ -1,5 +1,5 @@
 import { Box, Input, Text, Flex,Button } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useRef} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {useDispatch} from "react-redux"
 export const SideBar = () => {
@@ -12,6 +12,8 @@ export const SideBar = () => {
   const [sort,setSort] = useState(initialSortParams || "");
   const [reset,setReset] = useState(true);
   const dispatch = useDispatch();
+  
+
   const handleCheckBoxes = (e) => {
     let { value } = e.target;
     const allCategory = [...category];
@@ -67,6 +69,7 @@ export const SideBar = () => {
             name="category"
             type="radio"
           />
+          {console.log("filter",filter)}
         </Flex>
 
         <Flex

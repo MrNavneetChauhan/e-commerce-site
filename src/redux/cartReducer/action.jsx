@@ -7,6 +7,7 @@ import {
   POST_CART_LOADING,
 } from "./actionTypes";
 import axios from "axios";
+import { notification } from "../../utils/logicalFunctions.jsx";
 export const getCartLoading = () => {
   return {
     type: GET_CART_LOADING,
@@ -42,17 +43,51 @@ export const postCartError = () => {
   };
 };
 
-export const postingCartData = (payload) => (dispatch) => {
+export const postingCartData = (payload,toast) => (dispatch) => {
   dispatch(postCartLoading());
-  axios
-    .post("/cart", payload)
-    .then(() => {
-      dispatch(postCartData());
-    })
-    .catch(() => {
-      dispatch(postCartError());
-    });
+  axios.get("/cart").then(({data})=>{
+    let x = data.filter((item)=>item.id == payload.id)
+    if(x.length){
+      notification(toast,"Already Added","Product is already present in the Cart","info")
+    }else{
+      axios.post("/cart",payload).then(()=>{
+        dispatch(postCartData())
+        notification(toast,"Product Added","Product Added Successfully","success")
+      }).catch(()=>{
+        dispatch(postCartError())
+      })
+    }
+  })
 };
+
+export const updateCartData = (id,qty)=>(dispatch)=>{
+  console.log("qty",qty)
+  dispatch(postCartLoading());
+ return  axios({
+    method:'patch',
+    url:`/cart/${id}`,
+    data:{
+      qty:qty
+    }
+  }).then(()=>{
+   return  dispatch(postCartData())
+  }).catch(()=>{
+    dispatch(postCartError())
+  })
+}
+
+
+export const deleteCartData = (id)=>(dispatch)=>{
+  dispatch(postCartLoading());
+  return  axios({
+    method:'delete',
+    url:`/cart/${id}`,
+  }).then(()=>{
+   return  dispatch(postCartData())
+  }).catch(()=>{
+    dispatch(postCartError())
+  })
+}
 
 export const gettingCartData = ()=>(dispatch)=>{
     dispatch(getCartLoading())

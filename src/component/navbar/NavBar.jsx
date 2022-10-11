@@ -8,7 +8,6 @@ import { Login } from "./Login";
 export const NavBar = () => {
 
   const {isAuth} = useSelector((store)=>store.authReducer)
-console.log(isAuth)
   return (
     <Flex
       fontSize={"20px"}
@@ -26,7 +25,7 @@ console.log(isAuth)
       <HStack gap={"20px"}>
         <Link to={"/"}>Home</Link>
         <Link to={"/products"} >Products</Link>
-        <Link to={"/contact"}>Contact</Link>
+        <a target={"_blank"} href={"https://www.linkedin.com/in/navneet-chauhan-888825160/"}>Contact</a>
       </HStack>
       <Spacer/>
       <Flex alignItems={"center"}>
@@ -36,7 +35,7 @@ console.log(isAuth)
       <Spacer />
       <HStack gap={"20px"}>
         <Login/>
-        <Link to={"/cart"}>Cart</Link>
+        <Link to={isAuth?"/cart":"/login"}>Cart</Link>
       </HStack>
     </Flex>
   );

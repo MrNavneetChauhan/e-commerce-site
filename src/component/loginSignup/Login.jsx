@@ -28,7 +28,7 @@ const dispatch = useDispatch();
         dispatch(logginIn(toast,credential)).then(({type})=>{
             console.log(type)
             if(type == LOG_IN_SUCCESS){
-                navigate(recentRoute,{replace:true})
+              return  navigate(recentRoute,{replace:true})
             }
         })
     }
@@ -39,10 +39,10 @@ const dispatch = useDispatch();
         <Heading textAlign={"center"}>Login</Heading>
       <FormControl onSubmit={handleSubmit} isRequired>
         <FormLabel>Email</FormLabel>
-        <Input onChange={handleLogin} name={"email"}  id={"email"} type={"email"} placeholder="Enter your email" />
+        <Input  onChange={handleLogin} name={"email"}  id={"email"} type={"email"} placeholder="eve.holt@reqres.in" />
 
         <FormLabel>Password</FormLabel>
-        <Input onChange={handleLogin} name="password" id="password" type={"password"} placeholder="Password" />
+        <Input  onChange={handleLogin} name="password" id="password" type={"password"} placeholder="a@123456" />
 
         <Button onClick={handleSubmit} mt={"20px"} w={"100%"}>Submit</Button>
 

@@ -1,15 +1,15 @@
-export const setToLocalStorage = (token)=>{
-    if(token){
-        localStorage.setItem("token",token)
+export const setToLocalStorage = (key,value)=>{
+    if(key){
+        localStorage.setItem(key,value)
     }
 }
 
-export const removeFromLocalStorage = (token)=>{
-    if(token){
-        localStorage.removeItem(token);
+export const removeFromLocalStorage = (value)=>{
+    if(value){
+        localStorage.removeItem(value);
     }
 }
 
-export const getTokenFromLocalStorage = ()=>{
-    return localStorage.getItem("token");
+export const getTokenFromLocalStorage = (val)=>{
+    return localStorage.getItem(val);
 }

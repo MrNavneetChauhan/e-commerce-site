@@ -1,12 +1,15 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Button, Divider, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button, Divider, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react";
 import {BsHeart,BsFillCartCheckFill} from "react-icons/bs"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { loggingOut } from "../../redux/authentication/action";
 
 export const Login = ()=>{
 const {isAuth} = useSelector((store)=>store.authReducer)
 const navigate = useNavigate()
+const dispatch = useDispatch();
+const toast = useToast();
 return isAuth ?  (
     <Menu>
   <MenuButton _hover={{bg:"lightgray"}}  bg={"hidden"}>
@@ -20,7 +23,9 @@ return isAuth ?  (
       Cart
     </MenuItem>
     <Divider/>
-    <MenuItem>Logout</MenuItem>
+    <MenuItem onClick={()=>{
+      dispatch(loggingOut(toast))
+    }}>Logout</MenuItem>
   </MenuList>
 </Menu>
 ):<Link to={"/login"}>Login</Link>
